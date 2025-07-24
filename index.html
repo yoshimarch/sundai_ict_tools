@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>駿台小中学部 ICT学習ツールリンク集</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 宇宙の背景アニメーション */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+        
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(24px, 4vw, 48px);
+            font-weight: 900;
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
+            to { text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff, 0 0 80px #00ffff; }
+        }
+        
+        .subtitle {
+            font-size: clamp(14px, 2.5vw, 18px);
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+        
+        .category-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .toggle-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: #ffffff;
+            border: 2px solid #00ffff;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            min-width: 120px;
+        }
+        
+        .toggle-btn:hover {
+            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            box-shadow: 0 6px 25px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .toggle-btn.active {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.7);
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section.hidden {
+            display: none;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 700;
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px #ff6b6b;
+        }
+        
+        .admin-title {
+            color: #e74c3c;
+            text-shadow: 0 0 15px #e74c3c;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 0 10px;
+        }
+        
+        .tool-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 25px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .tool-card:hover::before {
+            left: 100%;
+        }
+        
+        .tool-card:hover {
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.1));
+        }
+        
+        .tool-card.app-only {
+            border-color: #ff9500;
+        }
+        
+        .tool-card.app-only:hover {
+            border-color: #ff9500;
+            box-shadow: 0 10px 30px rgba(255, 149, 0, 0.3);
+            background: linear-gradient(135deg, rgba(255, 149, 0, 0.2), rgba(255, 149, 0, 0.1));
+        }
+        
+        .tool-card.admin-tool {
+            border-color: #e74c3c;
+        }
+        
+        .tool-card.admin-tool:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.1));
+        }
+        
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .tool-card.app-only .tool-icon {
+            background: linear-gradient(45deg, #ff9500, #ffb347);
+        }
+        
+        .tool-card.admin-tool .tool-icon {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+        
+        .tool-name {
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        
+        .tool-desc {
+            font-size: 14px;
+            color: #b0b0b0;
+            line-height: 1.4;
+        }
+        
+        .app-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff9500;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .admin-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        /* モーダルスタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            margin: 15% auto;
+            padding: 30px;
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+        }
+        
+        .modal h3 {
+            color: #00ffff;
+            margin-bottom: 20px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .modal input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .modal input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn.confirm {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border-color: #00ffff;
+            color: #000;
+        }
+        
+        .modal-btn.cancel {
+            background: transparent;
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .elsa-menu-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            margin: 10% auto;
+            padding: 30px;
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+        }
+        
+        .elsa-options {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .elsa-option {
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .elsa-option:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.1));
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .tool-card {
+                padding: 20px;
+                min-height: 100px;
+            }
+            
+            .category-toggle {
+                gap: 10px;
+            }
+            
+            .toggle-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🚀 駿台小中学部</h1>
+            <p class="subtitle">ICT学習ツールリンク集</p>
+            
+            <div class="category-toggle">
+                <button class="toggle-btn active" onclick="switchCategory('student')">👨‍🎓 Student Tools</button>
+                <button class="toggle-btn" onclick="switchCategory('instructor')">👨‍🏫 Instructor Tools</button>
+                <button class="toggle-btn" onclick="requestAdminSection()">🔧 Administrator Tools</button>
+                <button class="toggle-btn" onclick="switchCategory('all')">🌟 All Tools</button>
+            </div>
+        </div>
+        
+        <!-- Student Tools -->
+        <div id="student-section" class="section">
+            <h2 class="section-title">👨‍🎓 Student Tools（生徒用ツール）</h2>
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openURL('https://student.atama.plus/')">
+                    <div class="tool-icon">A+</div>
+                    <div class="tool-name">atama+</div>
+                    <div class="tool-desc">AI学習システム</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://student.elsaspeak.com/login')">
+                    <div class="tool-icon">EL</div>
+                    <div class="tool-name">ELSA</div>
+                    <div class="tool-desc">英語発音学習</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://www.hoperoom.jp/Login')">
+                    <div class="tool-icon">📹</div>
+                    <div class="tool-name">育伸社動画</div>
+                    <div class="tool-desc">iワーク導入授業・問題解説</div>
+                </div>
+                
+                <div class="tool-card app-only" onclick="showAppMessage('manabo')">
+                    <div class="app-badge">APP</div>
+                    <div class="tool-icon">📱</div>
+                    <div class="tool-name">manabo</div>
+                    <div class="tool-desc">質問アプリ（アプリを起動）</div>
+                </div>
+                
+                <div class="tool-card app-only" onclick="showAppMessage('monoxer')">
+                    <div class="app-badge">APP</div>
+                    <div class="tool-icon">MX</div>
+                    <div class="tool-name">Monoxer</div>
+                    <div class="tool-desc">記憶学習アプリ（アプリを起動）</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://lms2.s-diverse.com/login')">
+                    <div class="tool-icon">DV</div>
+                    <div class="tool-name">駿台Diverse</div>
+                    <div class="tool-desc">駿台Diverse</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://eisp.aied.co.jp/student/login')">
+                    <div class="tool-icon">🗣️</div>
+                    <div class="tool-name">英スピ</div>
+                    <div class="tool-desc">英語スピーキング</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Instructor Tools -->
+        <div id="instructor-section" class="section hidden">
+            <h2 class="section-title">👨‍🏫 Instructor Tools（講師用ツール）</h2>
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openURL('https://www.next-i-library.jp/auth/login')">
+                    <div class="tool-icon">📚</div>
+                    <div class="tool-name">育伸マイライブラリ</div>
+                    <div class="tool-desc">講師用教材ライブラリ</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://www.hoperoom.jp/login')">
+                    <div class="tool-icon">📝</div>
+                    <div class="tool-name">育伸入塾テスト</div>
+                    <div class="tool-desc">入塾テスト管理</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://api.atama.plus/portal/login/?next=/portal/organizations/sus02/my-progress')">
+                    <div class="tool-icon">🌐</div>
+                    <div class="tool-name">atama+Portal</div>
+                    <div class="tool-desc">学習進捗管理ポータル</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://coach.atama.plus/public/login')">
+                    <div class="tool-icon">🎯</div>
+                    <div class="tool-name">atama+Coach</div>
+                    <div class="tool-desc">指導サポートツール</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://comiru.jp/teachers/login')">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-name">Comiru 講師ログイン</div>
+                    <div class="tool-desc">講師管理システム</div>
+                </div>
+                
+                <div class="tool-card" onclick="openURL('https://lms2.s-diverse.com/login')">
+                    <div class="tool-icon">🎓</div>
+                    <div class="tool-name">駿台Diverse 講師用</div>
+                    <div class="tool-desc">駿台Diverse 講師用</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Administrator Tools -->
+        <div id="admin-section" class="section hidden">
+            <h2 class="section-title admin-title">🔧 Administrator Tools（管理者用ツール）</h2>
+            <div class="tools-grid">
+                <div class="tool-card admin-tool" onclick="openURL('https://testweb.ikushin.co.jp/')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">🧪</div>
+                    <div class="tool-name">育伸学力テストWebログイン</div>
+                    <div class="tool-desc">学力テスト管理システム</div>
+                </div>
+                
+                <div class="tool-card admin-tool" onclick="openURL('https://monoxer.com/')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-name">Monoxer 管理ダッシュボード</div>
+                    <div class="tool-desc">記憶学習管理</div>
+                </div>
+                
+                <div class="tool-card admin-tool" onclick="openURL('https://partner.elsaspeak.com/admin/organization/4845/')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">🎯</div>
+                    <div class="tool-name">ELSA 管理（平岡校）</div>
+                    <div class="tool-desc">平岡校 管理ダッシュボード</div>
+                </div>
+                
+                <div class="tool-card admin-tool" onclick="openURL('https://partner.elsaspeak.com/admin/organization/4847/')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">🎯</div>
+                    <div class="tool-name">ELSA 管理（新札幌校）</div>
+                    <div class="tool-desc">新札幌校 管理ダッシュボード</div>
+                </div>
+                
+                <div class="tool-card admin-tool" onclick="openURL('https://partner.elsaspeak.com/admin/organization/4848/')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">🎯</div>
+                    <div class="tool-name">ELSA 管理（月寒中央校）</div>
+                    <div class="tool-desc">月寒中央校 管理ダッシュボード</div>
+                </div>
+                
+                <div class="tool-card admin-tool" onclick="openURL('https://admin.comiru.jp/auth/login')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">⚙️</div>
+                    <div class="tool-name">Comiru admin</div>
+                    <div class="tool-desc">comiru管理システム</div>
+                </div>
+                
+                <div class="tool-card admin-tool" onclick="openURL('https://org.manabo.education/auth/sign-in')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">🎓</div>
+                    <div class="tool-name">manabo 管理者</div>
+                    <div class="tool-desc">質問管理システム</div>
+                </div>
+                
+                <div class="tool-card admin-tool" onclick="openURL('https://eisp.aied.co.jp/school/login?timestamp=1752753593946')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">🗣️</div>
+                    <div class="tool-name">英スピ 管理者ダッシュボード</div>
+                    <div class="tool-desc">英語スピーキング管理</div>
+                </div>
+                
+                <div class="tool-card admin-tool" onclick="openURL('https://admin2.s-diverse.com/auth/login')">
+                    <div class="admin-badge">ADMIN</div>
+                    <div class="tool-icon">🏫</div>
+                    <div class="tool-name">駿台Diverse 管理者</div>
+                    <div class="tool-desc">駿台Diverse管理システム</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 管理者パスワード入力モーダル -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <h3>🔐 管理者認証</h3>
+            <p>管理者ツールにアクセスするには<br>パスワードを入力してください</p>
+            <input type="password" id="adminPassword" placeholder="パスワードを入力">
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeModal()">キャンセル</button>
+                <button class="modal-btn confirm" onclick="verifyPassword()">確認</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // グローバル変数
+        let pendingURL = '';
+        let isAdminAuthenticated = false;
+        
+        // 星を生成
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // カテゴリ切り替え
+        function switchCategory(category) {
+            // すべてのボタンのactiveクラスを削除
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // クリックされたボタンにactiveクラスを追加
+            event.target.classList.add('active');
+            
+            // すべてのセクションを非表示
+            document.getElementById('student-section').classList.add('hidden');
+            document.getElementById('instructor-section').classList.add('hidden');
+            document.getElementById('admin-section').classList.add('hidden');
+            
+            // 選択されたカテゴリを表示
+            switch(category) {
+                case 'student':
+                    document.getElementById('student-section').classList.remove('hidden');
+                    break;
+                case 'instructor':
+                    document.getElementById('instructor-section').classList.remove('hidden');
+                    break;
+                case 'admin':
+                    document.getElementById('admin-section').classList.remove('hidden');
+                    break;
+                case 'all':
+                    document.getElementById('student-section').classList.remove('hidden');
+                    document.getElementById('instructor-section').classList.remove('hidden');
+                    if (isAdminAuthenticated) {
+                        document.getElementById('admin-section').classList.remove('hidden');
+                    }
+                    break;
+            }
+        }
+        
+        // 管理者セクションへのアクセス要求
+        function requestAdminSection() {
+            if (isAdminAuthenticated) {
+                // すでに認証済みの場合は直接表示
+                
+                // Administrator Toolsボタンをアクティブにする
+                document.querySelectorAll('.toggle-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                // Administrator Toolsセクションを表示
+                document.getElementById('student-section').classList.add('hidden');
+                document.getElementById('instructor-section').classList.add('hidden');
+                document.getElementById('admin-section').classList.remove('hidden');
+            } else {
+                // 未認証の場合はパスワード要求
+                pendingURL = 'admin-section';
+                document.getElementById('adminModal').style.display = 'block';
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+        
+        // URLを新しいタブで開く
+        function openURL(url) {
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+        
+        // アプリメッセージを表示
+        function showAppMessage(appName) {
+            const messages = {
+                'manabo': 'manaboアプリを起動してください。\nアプリがインストールされていない場合は、App Store または Google Play からダウンロードしてください。',
+                'monoxer': 'Monoxerアプリを起動してください。\nアプリがインストールされていない場合は、App Store または Google Play からダウンロードしてください。'
+            };
+            alert(messages[appName]);
+        }
+        
+        // 管理者アクセス要求
+        function requestAdminAccess(url) {
+            pendingURL = url;
+            document.getElementById('adminModal').style.display = 'block';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminPassword').focus();
+        }
+        
+        // パスワード検証
+        function verifyPassword() {
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === '8096') {
+                closeModal();
+                
+                if (pendingURL === 'admin-section') {
+                    // 管理者セクションへのアクセス
+                    isAdminAuthenticated = true;
+                    
+                    // すべてのボタンのアクティブクラスを削除
+                    document.querySelectorAll('.toggle-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Administrator Toolsボタンを見つけてアクティブにする
+                    const adminBtn = document.querySelector('.toggle-btn[onclick="requestAdminSection()"]');
+                    if (adminBtn) {
+                        adminBtn.classList.add('active');
+                    }
+                    
+                    // Administrator Toolsセクションを表示
+                    document.getElementById('student-section').classList.add('hidden');
+                    document.getElementById('instructor-section').classList.add('hidden');
+                    document.getElementById('admin-section').classList.remove('hidden');
+                    
+                } else {
+                    // 個別ツールへのアクセス
+                    openURL(pendingURL);
+                }
+                
+                // 処理完了後にpendingURLをクリア
+                pendingURL = '';
+                
+            } else {
+                alert('パスワードが正しくありません。');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+        
+        // モーダルを閉じる
+        function closeModal() {
+            document.getElementById('adminModal').style.display = 'none';
+            // pendingURLはここでクリアしない！パスワード検証後にクリアする
+        }
+        
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // Enterキーでパスワード確認
+            document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    verifyPassword();
+                }
+            });
+            
+            // モーダル外クリックで閉じる
+            document.getElementById('adminModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
